@@ -7,76 +7,41 @@
 ## Date : 19th November 2022
 #### Description : plaidsh is like other shells, it can run any program on the system, including important commands such as ls, echo, and grep.
 
-#### Build Instructions : After copying the C file to your terminal, use the "make" command to compile the c programs and generate a 'plaidsh' executable file. Run the executable to initialze the shell. Alternatively, an already generated plaidsh executable can be found in this repository and ran directly without the need for calling "make". The functions that are used to make the shell operational are enumerated below.
+#### Build Instructions : After copying the C file to your terminal, use the "make" command to compile the c programs and generate a 'plaidsh' executable file. Run the executable to initialze the shell. Alternatively, an already generated plaidsh executable can be found in this repository and ran directly without the need for calling "make". 
 
 <br/>
 
+#### 🪢 The functions that are used to make the shell operational are enumerated below.
 
-#### 1. Reverse in place: Reverses a null-terminated string in place, converting it to all lower case in the process.
+#### 1. Read Word: Returns the first word from input, removing leading whitespace, handling double quotes, and translating escaped character. When called, word points to a buffer of word_len length. The read_word function places the translated word from input into the word buffer and returns the number of characters that were processed from input. 
+
   
    Examples:
   
-    "Carnegie Mellon" "nollem eigenrac"
-    "Four"            "ruof"
-    " One"            "eno "
-  
+    "   echo "           "echo"      returns 7
+    "one two" three"     "grep"      returns 4
+    "echo\ "             "echo "     returns 6
 
 <br/>
 
 
-#### 2. Reverse by word: Individually reverses each word of a null-terminated string in place. Whitespace characters (as identified by the C isspace() function) are passed through unchanged.
+#### 2. Parse Input: Parses an input line into an argv vector by segmenting the input into words that are bounded by unquoted whitespace. Double quotes are used to group words and are eliminated from the input. On success, returns the count of arguments processed (argc). In this case, each word will be returned in malloc’d memory, which must be explicitly freed by the caller. On failure, returns -1.
  
    Examples:
    
-     Carnegie␣Mellon            eigenraC␣nolleM
-     \tCarnegie␣␣Mellon         \teigenraC␣␣nolleM
-     Four                       ruoF
-     ␣One                       ␣enO
-     My␣heart␣is␣in␣␣the␣work   yM␣traeh␣si␣ni␣␣eht␣krow
-
-<br/>  
-
-#### 3. Is prefix: Returns true if str begins with prefix, and false otherwise. Both prefix and str are null-terminated strings. Note the empty string “” is a valid prefix for all strings.
- 
- 
-  Examples:
-  
-    prefix           str                 Returns
-    C                Carnegie␣Mellon     true
-    Carnegie         Carnegie␣Mellon     true
-    Carnegie␣Mellon  Carnegie␣Mellon     true
-    Cab              Carnegie␣Mellon     false
-  
+     echo one "two three" four      "echo" "one" "two three" four      Returns 4
 
 <br/>  
 
 
-#### 4. Remove Last Substring: Removes the last occurrence of substr from str, modifying the result in place. Returns the character position where the removal occurred, or -1 if substr was not found in str. Note that substr need not be a full word.
- 
- 
-   Examples:
-  
-    str                  substr              Result              Returns
-    Carnegie␣Mellon      Carnegie␣           Mellon              0
-    Carnegie␣Mellon      Kiltie              Carnegie␣Mellon     -1
-    Carnegie␣Mellon      “”                  Carnegie␣Mellon     14
-    one␣two␣one␣three    one␣                one␣two␣three       8
-    one␣two␣one␣three    hr                  one␣two␣one␣tee     13
-  
+#### 🪢 The Builtin functions that are used in the shell are enumerated below, along with their signatures. These functions can be called from plaid shell prompt and perfrom thesame functions as their aliases in bash.
 
-<br/>  
-
+####     1. exit : int builtin_exit(int argc, char *argv[]);
  
+####     2. author : int builtin_author(int argc, char *argv[]);
 
-#### 5. First Word: Returns the first word from input, removing leading whitespace. We will built upon this function in a subsequent assignment as we write our own Linux shell. When called, word points to a buffer of word_len length. After skipping leading whitespace, the first_word function copies the first word from input into the word buffer and returns the number of characters that were processed from input. In the case where input holds more than one word, it is possible to read the next word by calling first_word again with the pointer input+return_value. In the case that the word buffer is not long enough, first_word places the error message “Word too long” into the buffer and returns -1.
+####     3. cd : int builtin_cd(int argc, char *argv[]);
+
+####     4. pwd : int builtin_pwd(int argc, char *argv[]);
  
  
-   Examples:
-  
-    input                    Result (in word)                    Returns
-    ␣␣␣echo␣                 echo                                7
-    grep                     grep                                4
-    \techo␣one␣two␣three     echo                                5
-    (empty string)           (empty string)                      0
-
-<br/>  

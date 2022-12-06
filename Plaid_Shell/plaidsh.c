@@ -67,7 +67,7 @@ int
 builtin_cd(int argc, char *argv[])
 {
   if (argv[1] == NULL) {
-    printf("no path supplied\n");
+    chdir(getenv("HOME"));  
     return 0;
   }  
 
@@ -180,6 +180,7 @@ void mainloop()
 
   while (1) {
     input = readline(prompt);
+    add_history(input);
 
     if (input == NULL)
       exit(0);

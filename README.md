@@ -13,7 +13,8 @@
 
 #### 🪢 The functions that are used to make the shell operational are enumerated below.
 
-#### 1. Read Word: Returns the first word from input, removing leading whitespace, handling double quotes, and translating escaped character. When called, word points to a buffer of word_len length. The read_word function places the translated word from input into the word buffer and returns the number of characters that were processed from input. 
+#### 1. Read Word: Returns the first word from input, removing leading whitespace, handling double quotes, and translating escaped character. When called, word points to a buffer of word_len length. The read_word function places the translated word from input into the word buffer and returns the number of characters that were processed from input.
+V2 Update : Adds support for recognizing redirection characters
 
   
    Examples:
@@ -26,12 +27,17 @@
 
 
 #### 2. Parse Input: Parses an input line into an argv vector by segmenting the input into words that are bounded by unquoted whitespace. Double quotes are used to group words and are eliminated from the input. On success, returns the count of arguments processed (argc). In this case, each word will be returned in malloc’d memory, which must be explicitly freed by the caller. On failure, returns -1.
+V2 update : Adds support for globbing and redirection 
  
    Examples:
    
      echo one "two three" four      "echo" "one" "two three" four      Returns 4
 
 <br/>  
+
+#### 3. Command_t Struct: command data structure is documented in the command.h file. There are some available functions implemented with the command structure, these can be invsetigated in the command.c or command.h files.
+
+<br/>
 
 
 #### 🪢 The Builtin functions that are used in the shell are enumerated below, along with their signatures. These functions can be called from plaid shell prompt and perfrom thesame functions as their aliases in bash.

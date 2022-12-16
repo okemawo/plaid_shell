@@ -1,4 +1,4 @@
-# Plaid Shell
+# Plaid Shell (Update Version 2 16/12/2022)
 
 <br/>
 
@@ -43,5 +43,7 @@
 ####     3. cd : int builtin_cd(int argc, char *argv[]);
 
 ####     4. pwd : int builtin_pwd(int argc, char *argv[]);
+
+####     5. setevn : int builtin_setenv(const char varname, const char valname)
  
  

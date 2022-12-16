@@ -50,6 +50,6 @@ V2 update : Adds support for globbing and redirection
 
 ####     4. pwd : int builtin_pwd(int argc, char *argv[]);
 
-####     5. setevn : int builtin_setenv(const char varname, const char valname)
+####     5. setevn : int builtin_setenv(const char varname, const char valname) (V2 Update : New Builtin)
  
  
